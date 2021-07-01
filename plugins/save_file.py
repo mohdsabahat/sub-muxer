@@ -49,7 +49,7 @@ async def save_doc(client, message):
         )
 
     await client.edit_message_text(
-        text = Chat.DOWNLOAD_SUCCESS.format(time.time()-start_time),
+        text = Chat.DOWNLOAD_SUCCESS.format(round(time.time()-start_time)),
         chat_id = chat_id,
         message_id = downloading.message_id
     )
@@ -129,6 +129,12 @@ async def save_video(client, message):
             chat_id = chat_id,
             message_id = downloading.message_id
         )
+
+    await client.edit_message_text(
+        text = Chat.DOWNLOAD_SUCCESS.format(round(time.time()-start_time)),
+        chat_id = chat_id,
+        message_id = downloading.message_id
+    )
 
     tg_filename = os.path.basename(download_location)
     try:

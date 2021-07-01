@@ -23,3 +23,6 @@ Credits :- @mohdsabahat
 <a href="https://github.com/mohdsabahat/sub-muxer">Repo URL</a>"""
 
     NO_AUTH_USER = "You are not authorised to use this bot.\nContact the bot owner!"
+    DOWNLOAD_SUCCESS = """File downloaded successfully!
+
+Time taken : {} seconds."""
