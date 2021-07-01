@@ -1,0 +1,38 @@
+{
+	"name": "Sub-Muxer",
+	"description": "Telegram bot to mux subtitles with the video",
+	"keywords": [
+		"telegram-bot",
+		"subtitles",
+		"muxing"
+	],
+	"repository": "https://github.com/mohdsabahat/sub-muxer",
+	"formation": {
+		"worker": {
+			"quantity": 1,
+			"size": "free"
+		}
+	},
+	"env": {
+		"BOT_TOKEN": {
+			"description": "Telegram bot token. get it from botfather"
+		},
+		"API_HASH": {
+			"description": "API Hash of yoir app"
+		},
+		"APP_ID": {
+			"description": "App Id of your app."
+		},
+		"ALLOWED_USERS": {
+			"description": "User id of users allowed to use the bot."
+		}
+	},
+	"buildpacks": [
+		{
+			"url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
+		},
+		{
+			"url": "heroku/python"
+		}
+	]
+}
