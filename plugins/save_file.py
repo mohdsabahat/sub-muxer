@@ -13,6 +13,7 @@ from pyrogram import Client, filters
 from helper_func.progress_bar import progress_bar
 from helper_func.dbhelper import Database as Db
 import re
+import requests
 from urllib.parse import quote, unquote
 
 db = Db()
@@ -99,13 +100,13 @@ async def save_doc(client, message):
         )
 
     else:
-        text = f'File extension ("{ext}") not supported!\nFile = {filename}'
+        text = Chat.UNSUPPORTED_FORMAT.format(ext)+f'\nFile = {tg_filename}'
         await client.edit_message_text(
             text = text,
             chat_id = chat_id,
             message_id = downloading.message_id
         )
-        os.remove(Config.DOWNLOAD_DIR+'/'+filename)
+        os.remove(Config.DOWNLOAD_DIR+'/'+tg_filename)
 
 
 @Client.on_message(filters.video & check_user & filters.private)
@@ -171,12 +172,16 @@ async def save_url(client, message):
     chat_id = message.from_user.id
     save_filename = None
 
-    if len(message.text.split('|')) ==2 :
-        save_filename = message.text.split('|')[1]
-        url = quote(message.text.split('|')[0].strip())
+    if "|" in message.text:
+        if len(message.text.split('|')) ==2 :
+            save_filename = message.text.split('|')[1].strip()
+            url = message.text.split('|')[0].strip()
     else :
-        url = quote(message.text.strip())
-    
+        url = message.text.strip()
+
+    if len(save_filename)>60:
+        return await client.sendMessage(chat_id, Chat.LONG_CUS_FILENAME)
+
     r = requests.get(url, stream=True, allow_redirects=True)
     if save_filename is None :
         if 'content-disposition' in r.headers.keys() :
@@ -197,7 +202,7 @@ async def save_url(client, message):
     sent_msg = await client.send_message(chat_id, 'Preparing Your Download')
     ext = save_filename.split('.')[-1]
     if ext not in ['mp4','mkv'] :
-        return await sent_msg.edit(f'ERROR : File format {ext} Not supported!')
+        return await sent_msg.edit(Chat.UNSUPPORTED_FORMAT.format(ext))
 
     size = None
     if 'content-length' in r.headers.keys() :
@@ -224,17 +229,23 @@ async def save_url(client, message):
                     written = f.write(chunk)
                     #current += 1024*1024
                     current += written
-                    progress_bar(current, size, 'Downloading Your File!', sent_msg, start)
+                    await progress_bar(current, size, 'Downloading Your File!', sent_msg, start)
 
     logging.info(save_filename)
 
-    await sent_msg.edit(
+    try:
+        await sent_msg.edit(
             Chat.DOWNLOAD_SUCCESS.format(round(time.time()-start))
             )
+    except:
+        pass
 
-    dbase.put_video(chat_id, filename, save_filename)
-    if dbase.check_sub(chat_id) :
+    db.put_video(chat_id, filename, save_filename)
+    if db.check_sub(chat_id) :
         text = 'Video File Downloaded.\nChoose your desired muxing\n[ /softmux , /hardmux ]'
     else :
         text = 'Video File Downloaded.\nNow send Subtitle file!'
-    await sent_msg.edit(text)
+    try:
+        await sent_msg.edit(text)
+    except:
+        pass
