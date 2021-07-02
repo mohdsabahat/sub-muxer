@@ -26,3 +26,5 @@ Credits :- @mohdsabahat
     DOWNLOAD_SUCCESS = """File downloaded successfully!
 
 Time taken : {} seconds."""
+    FILE_SIZE_ERROR = "ERROR : Cannot Extract File Size from URL!"
+    MAX_FILE_SIZE = "File size is greater than 2Gb. Which is the limit imposed by telegram!"
