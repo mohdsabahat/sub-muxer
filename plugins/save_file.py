@@ -179,7 +179,7 @@ async def save_url(client, message):
     else :
         url = message.text.strip()
 
-    if len(save_filename)>60:
+    if save_filename and len(save_filename)>60:
         return await client.sendMessage(chat_id, Chat.LONG_CUS_FILENAME)
 
     r = requests.get(url, stream=True, allow_redirects=True)
