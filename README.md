@@ -9,11 +9,16 @@ Telegram bot to mux subtitle with video.
 * Softmux subtitle with video
 * Hardmux subtitle with video
 * Supported subtitle formats - (ass, srt)
-* Supported Video formats - (mkv mp4)
+* Supported video formats - (mkv, mp4)
+
+## Commands
+* /help - To get some help about how to use the bot.
+* /softmux - softmux the sent video and subtitle file.
+* /hardmux - hardmux the sent video and subtitle file.
 
 ## To-Do :
 
-- [ ] Download file using URL.
+- [x] Download file using URL.
 - [x] Hardmux support.
 
 ## Thanks to :
@@ -21,5 +26,5 @@ Telegram bot to mux subtitle with video.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
