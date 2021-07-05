@@ -191,13 +191,15 @@ async def save_url(client, message):
                 save_filename = res.group(1)
             else :
                 #removing argumets from url!
-                url = str(''.join(url.split('?'))[0:-1])
+                if '?' in url:
+                    url = ''.join(url.split('?')[0:-1])
                 save_filename = url.split('/')[-1]
                 save_filename = unquote(filename)
         else :
-            url = str(''.join(url.split('?'))[0:-1])
+            if '?' in url:
+                url = ''.join(url.split('?')[0:-1])
             save_filename = url.split('/')[-1]
-            save_filename = unquote(filename)
+            save_filename = unquote(save_filename)
 
     sent_msg = await client.send_message(chat_id, 'Preparing Your Download')
     ext = save_filename.split('.')[-1]
