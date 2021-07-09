@@ -29,7 +29,7 @@ async def softmux(client, message):
     if not og_sub_filename :
         text += 'Send a Subtitle File!'
 
-    if not (og_sub_filename or og_vid_filename) :
+    if not (og_sub_filename and og_vid_filename) :
         await client.send_message(chat_id, text)
         return
 
