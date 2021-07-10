@@ -1,3 +1,5 @@
 *.sqlite
 *.session
 __pycache__
+downloads
+*.swp
