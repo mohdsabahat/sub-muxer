@@ -194,7 +194,7 @@ async def save_url(client, message):
                 if '?' in url:
                     url = ''.join(url.split('?')[0:-1])
                 save_filename = url.split('/')[-1]
-                save_filename = unquote(filename)
+                save_filename = unquote(save_filename)
         else :
             if '?' in url:
                 url = ''.join(url.split('?')[0:-1])
