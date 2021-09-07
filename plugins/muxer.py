@@ -1,7 +1,7 @@
 from pyrogram import Client, filters
 from helper_func.progress_bar import progress_bar
 from helper_func.dbhelper import Database as Db
-from helper_func.mux import softmux_vid, hardmux_vid
+from helper_func.mux import softmux_vid, hardmux_vid, softremove_vid
 from config import Config
 import time
 import os
@@ -125,4 +125,60 @@ async def hardmux(client, message):
         os.remove(path+final_filename)
     except :
         pass
+    db.erase(chat_id)
+
+
+@Client.on_message(filters.command('softremove') & check_user & filters.private)
+async def softremove(client, message):
+
+    chat_id = message.from_user.id
+    og_vid_filename = db.get_vid_filename(chat_id)
+    og_sub_filename = db.get_sub_filename(chat_id)
+    text = ''
+    if not og_vid_filename :
+        text += 'First send a Video File\n'
+    if not og_sub_filename :
+        text += 'Send a Subtitle File!'
+
+    if not (og_sub_filename and og_vid_filename) :
+        await client.send_message(chat_id, text)
+        return
+
+    text = 'Your File is Being Soft Subbed. This should be done in few seconds!'
+    sent_msg = await client.send_message(chat_id, text)
+
+    softmux_filename = await softremove_vid(og_vid_filename, og_sub_filename, sent_msg)
+    if not softmux_filename:
+        return
+
+    final_filename = db.get_filename(chat_id)
+    os.rename(Config.DOWNLOAD_DIR+'/'+softmux_filename,Config.DOWNLOAD_DIR+'/'+final_filename)
+
+    start_time = time.time()
+    try:
+        await client.send_document(
+                chat_id, 
+                progress = progress_bar, 
+                progress_args = (
+                    'Uploading your File!',
+                    sent_msg,
+                    start_time
+                    ), 
+                document = os.path.join(Config.DOWNLOAD_DIR, final_filename),
+                caption = final_filename
+                )
+        text = 'File Successfully Uploaded!\nTotal Time taken : {} seconds'.format(round(time.time()-start_time))
+        await sent_msg.edit(text)
+    except Exception as e:
+        print(e)
+        await client.send_message(chat_id, 'An error occured while uploading the file!\nCheck logs for details of the error!')
+
+    path = Config.DOWNLOAD_DIR+'/'
+    os.remove(path+og_sub_filename)
+    os.remove(path+og_vid_filename)
+    try :
+        os.remove(path+final_filename)
+    except :
+        pass
+
     db.erase(chat_id)
