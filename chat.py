@@ -34,4 +34,4 @@ Time taken : {} seconds."""
     LONG_CUS_FILENAME = """Filename you provided is greater than 60 characters.
 Please provide a shorter name."""
     UNSUPPORTED_FORMAT = "ERROR : File format {} Not supported!"
-    CHOOSE_CMD = "Subtitle file downloaded successfully.\nChoose your desired muxing!\n[ /softremove , /softmux , /hardmux ]
+    CHOOSE_CMD = "Subtitle file downloaded successfully.\nChoose your desired muxing!\n[ /softremove , /softmux , /hardmux ]"

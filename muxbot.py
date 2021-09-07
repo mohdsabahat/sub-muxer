@@ -9,7 +9,10 @@ logger = logging.getLogger(__name__)
 
 import os
 
-from config import Config
+if os.path.exists('testconfig.py'):
+    from testconfig import Config
+else:
+    from config import Config
 
 from helper_func.dbhelper import Database as Db
 db = Db().setup()
