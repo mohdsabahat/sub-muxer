@@ -15,11 +15,13 @@ Telegram bot to mux subtitle with video.
 * The subtitle file you add will be default subtitle file and will
   be placed as first stream of mkv file and the original streams will
   be placed below it in the same order.
+* Use `/softremove` command remove all other streams from video except first video and all audio streams.
 * When hardmuxing only the first Video amd the first Audio file will
   be present in the output file.
   
 ## Commands
 * /help - To get some help about how to use the bot.
+* /softremove - Softmux the video and subtitle file removing all extra streams from the video.(Only keeps first video stream)
 * /softmux - softmux the sent video and subtitle file.
 * /hardmux - hardmux the sent video and subtitle file.
 
@@ -27,6 +29,7 @@ Telegram bot to mux subtitle with video.
 
 - [x] Download file using URL.
 - [x] Hardmux support.
+- [x] softmux command to remove all extra streams.
 
 ## Thanks to :
 * [Dan](https://github.com/pyrogram/pyrogram) - Telegram Framework for bots and users.

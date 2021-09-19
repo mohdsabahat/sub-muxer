@@ -76,7 +76,7 @@ async def save_doc(client, message):
         os.rename(Config.DOWNLOAD_DIR+'/'+tg_filename,Config.DOWNLOAD_DIR+'/'+filename)
         db.put_sub(chat_id, filename)
         if db.check_video(chat_id):
-            text = 'Subtitle file downloaded successfully.\nChoose your desired muxing!\n[ /softmux , /hardmux ]'
+            text = Chat.CHOOSE_CMD
         else:
             text = 'Subtitle file downloaded.\nNow send Video File!'
 
@@ -90,7 +90,7 @@ async def save_doc(client, message):
         os.rename(Config.DOWNLOAD_DIR+'/'+tg_filename,Config.DOWNLOAD_DIR+'/'+filename)
         db.put_video(chat_id, filename, save_filename)
         if db.check_sub(chat_id):
-            text = 'Video file downloaded successfully.\nChoose your desired muxing.\n[ /softmux , /hardmux ]'
+            text = Chat.CHOOSE_CMD
         else :
             text = 'Video file downloaded successfully.\nNow send Subtitle file!'
         await client.edit_message_text(
@@ -156,7 +156,7 @@ async def save_video(client, message):
     
     db.put_video(chat_id, filename, save_filename)
     if db.check_sub(chat_id):
-        text = 'Video file downloaded successfully.\nChoose your desired muxing.\n[ /softmux , /hardmux ]'
+        text = Chat.CHOOSE_CMD
     else :
         text = 'Video file downloaded successfully.\nNow send Subtitle file!'
     await client.edit_message_text(
@@ -244,7 +244,7 @@ async def save_url(client, message):
 
     db.put_video(chat_id, filename, save_filename)
     if db.check_sub(chat_id) :
-        text = 'Video File Downloaded.\nChoose your desired muxing\n[ /softmux , /hardmux ]'
+        text = Chat.CHOOSE_CMD
     else :
         text = 'Video File Downloaded.\nNow send Subtitle file!'
     try:
