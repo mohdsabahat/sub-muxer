@@ -59,7 +59,7 @@ async def save_doc(client, message):
 
     tg_filename = os.path.basename(download_location)
     try:
-        og_filename = message.document.filename
+        og_filename = message.document.file_name
     except:
         og_filename = False
 
@@ -141,7 +141,7 @@ async def save_video(client, message):
 
     tg_filename = os.path.basename(download_location)
     try:
-        og_filename = message.document.filename
+        og_filename = message.video.file_name
     except:
         og_filename = False
     
