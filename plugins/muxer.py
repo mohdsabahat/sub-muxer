@@ -10,6 +10,8 @@ db = Db()
 
 async def _check_user(filt, c, m):
     chat_id = str(m.from_user.id)
+    if 'all' in Config.ALLOWED_USERS:
+        return True
     if chat_id in Config.ALLOWED_USERS:
         return True
     else :

@@ -24,7 +24,7 @@
 			"description": "App Id of your app."
 		},
 		"ALLOWED_USERS": {
-			"description": "User id of users seperated by a comma allowed to use the bot."
+			"description": "User id of users seperated by a comma allowed to use the bot. Use *all* to allow everyone!"
 		}
 	},
 	"buildpacks": [

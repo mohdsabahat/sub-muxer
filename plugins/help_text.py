@@ -18,7 +18,7 @@ logging.getLogger('pyrogram').setLevel(logging.WARNING)
 @pyrogram.Client.on_message(pyrogram.filters.command(['help']))
 async def help_user(bot, update):
 
-    if str(update.from_user.id) in Config.ALLOWED_USERS:
+    if str(update.from_user.id) in Config.ALLOWED_USERS or 'all' in Config.ALLOWED_USERS:
         await bot.send_message(
             update.chat.id,
             Chat.HELP_TEXT,
