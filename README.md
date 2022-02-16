@@ -1,3 +1,6 @@
+# 🚧 Unmaintained Repository 🚧
+This repo is now old and unmaintained, if you wish to work on it please fork it!
+
 # Sub-Muxer
 Telegram bot to mux subtitle with video.
 
