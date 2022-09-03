@@ -6,8 +6,6 @@ class Chat:
 <b>Send me a Telegram file to begin</b>
 
 /help for more details..
-
-Credits :- @mohdsabahat
     """
 
     HELP_USER = "??"
